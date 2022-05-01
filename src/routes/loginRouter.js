@@ -1,5 +1,6 @@
 const express = require('express');
 const loginRouter = express.Router();
+const Userdata = require('../model/Userdata');
 
 
 function router(nav) {
@@ -15,6 +16,28 @@ function router(nav) {
             nav
         })
     })
+
+    loginRouter.post('/createAccount/',(req,res)=>{
+        var details = {
+            name: req.body.name,
+            username: req.body.username,
+            email: req.body.email,
+            admin: false,
+        }
+
+        var user = Userdata(details)
+        Userdata.register(user,req.body.password,(err,data)=>{
+            if(err){
+                console.log("failed to register")
+                res.redirect("/")
+            }
+            else{
+                console.log("Successfully registered")
+                res.redirect("/")
+            }
+        })
+    })
+
 
     return loginRouter
 }
