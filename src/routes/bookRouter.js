@@ -43,10 +43,16 @@ function router(nav){
     
     bookRouter.get('/:id',(req,res)=>{
         const id = req.params.id
-        res.render("book",{
-            nav,
-            title : 'Library',
-            book : books[id]
+        Bookdata.find({"_id":id}).
+        then((book)=>{
+            console.log(book[0])
+
+            res.render("book",{
+                nav,
+                title : 'Library',
+                book : book[0]
+        })
+
         })
     })
 
