@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>Books</title>
+		<title>Add Author</title>
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -51,16 +51,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1>Storystrap
+        <h1>Add Author
           <p class="lead"></p>
         </h1>
       </div>
       <div class="col-md-5">
-        <div class="well well-  lg"> 
+        <div class="well well-lg"> 
           <div class="row">
             <div class="col-sm-12">
               
-              <a href="/admin/addauthor" class="btn btn-danger">Add Author</a>
+			
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
   
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div class="top-spacer"> </div>
       </div>
     </div> 
@@ -82,7 +82,7 @@
 <div class="container">
   <div class="row">
     
-    <div class="col-md-12"> 
+    <div class="col-md-6"> 
       
       <div class="panel">
         <div class="panel-body">
@@ -90,28 +90,48 @@
           
           
           <!--/stories-->
-          <%for(i=0;i<authors.length;i++){%>
           <div class="row">    
             <br>
-            <div class="col-md-2 col-sm-3 text-center">
-              <a class="story-title" href="#"><img alt="" src="/images/<%=authors[i].image%>" style="width:100px;height:100px" class="img-circle"></a>
-            </div>
-            <div class="col-md-10 col-sm-9">
-              <h3><%=authors[i].name%></h3>
-              <div class="row">
-                <div class="col-xs-9">
-                  <h4><span class="label label-default"><%=authors[i].books%></span></h4><h4>
-                  <small style="font-family:courier,'new courier';" class="text-muted"><%=authors[i].genre%> <a href="/authors/<%=i%>" class="text-muted">Read More</a></small>
-                  </h4></div>
-                <div class="col-xs-3"></div>
+
+
+
+            <form method="post" action="/admin/addauthor/">
+              <!-- Name input -->
+              <div class="form-outline mb-4">
+                <input type="text" id="form5Example1" class="form-control" name="name" required />
+                <label class="form-label" for="form5Example1">Name</label>
               </div>
-              <br><br>
-            </div>
+            
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input type="text" id="form5Example2" class="form-control"  name="books" required />
+                <label class="form-label" for="form5Example2">Books</label>
+              </div>
+
+
+              <div class="form-outline mb-4">
+                <input type="text" id="form5Example2" class="form-control" name="genre" required />
+                <label class="form-label" for="form5Example2">Genre</label>
+                <br>
+                <br>
+              </div>
+
+
+              <div class="form-outline mb-4">
+                
+                <label class="form-label" for="form5Example2">Image</label>
+                <input type="file" name="image" required />
+              </div>
+            
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block mb-4 mt-4">Add Author</button>
+            </form>
+
           </div>
           <hr>
           
           
-          <%}%>
 
           <!--/stories-->
           

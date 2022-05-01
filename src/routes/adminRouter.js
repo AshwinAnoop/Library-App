@@ -1,6 +1,7 @@
 const express = require("express")
 const adminRouter = express.Router()
 const Bookdata = require("../model/Bookdata")
+const Authordata = require("../model/Authordata")
 
 function router(nav) {
 
@@ -22,6 +23,26 @@ function router(nav) {
         book.save()
         res.redirect("/books")
     })
+
+    adminRouter.get('/addauthor/',(req,res)=>{
+        res.render('addauthor',{
+            nav
+        })
+    })
+
+    adminRouter.post('/addauthor/',(req,res)=>{
+        var item = {
+            name: req.body.name,
+            books: req.body.books,
+            genre: req.body.genre,
+            image: req.body.image
+        }
+
+        var author = Authordata(item)
+        author.save()
+        res.redirect('/authors/')
+    })
+
 
     return adminRouter
 
