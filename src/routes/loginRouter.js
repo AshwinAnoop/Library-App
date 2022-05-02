@@ -1,6 +1,7 @@
 const express = require('express');
 const loginRouter = express.Router();
 const Userdata = require('../model/Userdata');
+const passport = require('passport');
 
 
 function router(nav) {
@@ -9,6 +10,25 @@ function router(nav) {
         res.render('login',{
             nav
         })
+    })
+
+    loginRouter.post("/",(req,res,next)=>{
+        passport.authenticate('local',(err,user)=>{
+            if (err) {
+                console.log(err)
+                res.redirect('/login')
+            }else{
+                if (!user) {
+                    console.log("Incorrect data")
+                    res.redirect('/login/') 
+                }else{
+                    req.logIn(user,()=>{
+                        console.log("login successful")
+                        res.redirect("/")
+                    })
+                }
+            }
+        })(req,res,next);
     })
 
     loginRouter.get('/createAccount/',(req,res)=>{
@@ -29,11 +49,11 @@ function router(nav) {
         Userdata.register(user,req.body.password,(err,data)=>{
             if(err){
                 console.log("failed to register")
-                res.redirect("/")
+                res.redirect("/login/")
             }
             else{
                 console.log("Successfully registered")
-                res.redirect("/")
+                res.redirect("/login/")
             }
         })
     })
