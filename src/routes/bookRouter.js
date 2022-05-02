@@ -3,60 +3,48 @@ const bookRouter = express.Router();
 const Bookdata = require('../model/Bookdata')
 
 
-function router(nav){
-    // var books=[
-    //     {
-    //         title:'Tom and Jerry',
-    //         author:'Joseph Barbera',
-    //         genre:'cartoon',
-    //         img: '/images/tom.jpg'
-    //     },
-    //     {
-    //         title:'Harry Porter',
-    //         author:'JK Rowling',
-    //         genre:'Fantasy',
-    //         img: '/images/harry.jpg'
-    //     },
-    //     {
-    //         title:'Pathumayude Aadu',
-    //         author:'Basheer',
-    //         genre:'Drama',
-    //         img: '/images/basheer.jpg'
-    //     }
-    // ]
-    
-    bookRouter.get('/',(req,res)=>{
+function router(nav) {
+
+    bookRouter.get('/', (req, res) => {
         Bookdata.find()
-        .then(function (books) {
-            res.render("books",{
-                nav,
-                title : 'Library',
-                books
+            .then(function (books) {
+                res.render("books", {
+                    nav,
+                    title: 'Library',
+                    books
+                })
+
             })
-            
-        })
 
     })
 
 
 
-    
-    bookRouter.get('/:id',(req,res)=>{
+
+    bookRouter.get('/:id', (req, res) => {
         const id = req.params.id
-        Bookdata.find({"_id":id}).
-        then((book)=>{
-            console.log(book[0])
+        Bookdata.find({ "_id": id }).
+            then((book) => {
+                console.log(book[0])
 
-            res.render("book",{
-                nav,
-                title : 'Library',
-                book : book[0]
-        })
+                res.render("book", {
+                    nav,
+                    title: 'Library',
+                    book: book[0]
+                })
 
-        })
+            })
     })
 
 
+    bookRouter.get('/delete/:id',(req,res)=>{
+        const id = req.params.id
+        Bookdata.deleteOne({ "_id": id })
+        .then((book)=>{
+            console.log(book)
+            res.redirect('/books')
+        })
+    })
 
     return bookRouter
 }
