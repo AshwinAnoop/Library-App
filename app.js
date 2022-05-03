@@ -18,6 +18,7 @@ const loginRouter = require('./src/routes/loginRouter')(nav)
 const adminRouter = require('./src/routes/adminRouter')(nav)
 
 app.use(express.static('./public'));
+app.use('/images', express.static('images'));
 app.use(express.urlencoded({extended:true}));
 app.use(session({   resave: false,saveUninitialized: true,secret: 'SECRET' }));
 app.use(passport.initialize());
