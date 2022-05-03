@@ -46,6 +46,32 @@ function router(nav) {
         })
     })
 
+
+    bookRouter.get('/update/:id',(req,res)=>{
+        const id = req.params.id
+        Bookdata.find({'_id':id})
+        .then((book)=>{
+            res.render('updatebook',{
+                nav,
+                book : book[0]
+            })
+        })
+
+    })
+
+    bookRouter.post('/update/',(req,res)=>{
+        const id = req.body.bookid
+        Bookdata.updateOne({'_id':id},{$set:{
+            'title': req.body.title,
+            'author': req.body.author,
+            'genre': req.body.genre
+        }})
+        .then((book)=>{
+            console.log(book)
+            res.redirect('/books')
+        })
+    })
+
     return bookRouter
 }
 
